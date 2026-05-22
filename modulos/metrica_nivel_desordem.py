@@ -169,10 +169,3 @@ def calcular_nivel_desordem(caminho_arquivo_entrada, caminho_arquivo_saida="resu
     except Exception as e:
         print(f"Erro ao salvar o arquivo de resultado: {e}")
 
-# Exemplo de uso
-if __name__ == "__main__":
-    arquivo_json = "data/atividades.json"
-    caminho_saida = "resultado_nivel_desordem_por_sessao.json"
-    DIMENSAO_D = 3 
-
-    calcular_nivel_desordem(arquivo_json, caminho_arquivo_saida=caminho_saida, D=DIMENSAO_D)

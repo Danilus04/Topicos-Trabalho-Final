@@ -1,5 +1,4 @@
 import json
-from ..fetch_statements import fetch_statements
 from datetime import datetime
 
 def calcular_tempo_resposta(statements):
@@ -41,10 +40,3 @@ def calcular_tempo_resposta(statements):
         json.dump(tempos, f, indent=2, ensure_ascii=False)
 
     return tempos
-
-if __name__ == "__main__":
-    statements = fetch_statements({
-        "verb": "http://adlnet.gov/expapi/verbs/completed",
-        "limit": 1000
-    })
-    calcular_tempo_resposta(statements)

@@ -67,8 +67,3 @@ def calcular_porcentagem_do_curso_acessada(arquivo_json):
         json.dump(resultados, f, indent=4, ensure_ascii=False)
 
 
-# Exemplo de uso
-if __name__ == "__main__":
-    arquivo_json = "atividades.json"
-
-    calcular_porcentagem_do_curso_acessada(arquivo_json)

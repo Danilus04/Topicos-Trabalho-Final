@@ -137,8 +137,3 @@ def calcular_nivel_confusao(caminho_arquivo_entrada, caminho_arquivo_saida="resu
     except Exception as e:
         print(f"Erro crítico ao salvar JSON: {e}")
 
-if __name__ == "__main__":
-    arquivo_entrada = "atividades.json"
-    arquivo_saida = "resultado_nivel_confusao.json"
-    
-    calcular_nivel_confusao(arquivo_entrada, arquivo_saida)

@@ -81,22 +81,3 @@ def calcular_proporcao_visualizacoes_por_atividade(caminho_entrada, caminho_said
         print(f"Erro ao salvar o arquivo de resultado '{caminho_saida}': {e}")
 
 
-# --- Como usar a função ---
-if __name__ == "__main__":
-    # Defina o caminho para o seu arquivo de entrada aqui
-    # Exemplo: Se o script está na mesma pasta que 'atividades.json'
-    caminho_do_arquivo_json = "../../data/atividades.json" 
-    # Exemplo: Se 'atividades.json' está em uma subpasta 'data'
-    # caminho_do_arquivo_json = os.path.join("data", "atividades.json") 
-    
-    # Nome do arquivo de saída desejado
-    arquivo_de_saida = "../../resultado_proporcao_views_por_atividade.json"
-
-    try:
-        calcular_proporcao_visualizacoes_por_atividade(caminho_do_arquivo_json, arquivo_de_saida)
-    except FileNotFoundError as e:
-        print(e)
-    except json.JSONDecodeError as e:
-        print(e)
-    except Exception as e:
-        print(f"Ocorreu um erro inesperado durante o cálculo: {e}")

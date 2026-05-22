@@ -120,19 +120,3 @@ def calcular_feedback_lido_por_usuario(caminho_entrada, caminho_saida="resultado
         print(f"Erro ao salvar o arquivo de resultado '{caminho_saida}': {e}")
 
 
-# --- Exemplo de uso ---
-if __name__ == "__main__":
-    # Caminho para o seu arquivo de entrada
-    caminho_do_arquivo = "atividades.json" 
-    
-    # Nome do arquivo de saída
-    arquivo_de_saida = "resultado_feedback_lido_por_usuario.json"
-
-    try:
-        calcular_feedback_lido_por_usuario(caminho_do_arquivo, arquivo_de_saida)
-    except FileNotFoundError as e:
-        print(e)
-    except json.JSONDecodeError as e:
-        print(e)
-    except Exception as e:
-        print(f"Ocorreu um erro inesperado: {e}")

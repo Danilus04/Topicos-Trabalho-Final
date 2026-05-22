@@ -1,6 +1,5 @@
 import json
 import re
-from ..fetch_statements import fetch_statements
 
 # def calcular_tentativas_por_questionario(statements):
 #     tentativas_mais_recentes = {}
@@ -111,10 +110,3 @@ def calcular_tentativas_por_questionario(statements):
         json.dump(resultado, f, indent=2, ensure_ascii=False)
 
     return resultado
-
-if __name__ == "__main__":
-    statements = fetch_statements({
-        "verb": "http://adlnet.gov/expapi/verbs/completed",
-        "limit": 1000
-    })
-    calcular_tentativas_por_questionario(statements)

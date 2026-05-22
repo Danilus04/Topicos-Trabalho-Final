@@ -1,6 +1,5 @@
 from collections import defaultdict
 import json
-from ..fetch_statements import fetch_statements
 
 def calcular_pontuacao(statements):
     usuarios = defaultdict(lambda: defaultdict(dict))
@@ -90,9 +89,3 @@ def calcular_pontuacao(statements):
 
     return resultados
 
-if __name__ == "__main__":
-    statements = fetch_statements({
-        "verb": "http://adlnet.gov/expapi/verbs/completed",
-        "limit": 1000
-    })
-    calcular_pontuacao(statements)

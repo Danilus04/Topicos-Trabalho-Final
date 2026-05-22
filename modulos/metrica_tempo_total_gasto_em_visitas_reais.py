@@ -1,6 +1,5 @@
 import json
 from datetime import datetime
-from ..fetch_statements import fetch_statements
 
 def calcular_tempo_total_gasto_em_visitas_reais(statements):
     # Ordena statements por timestamp (garante ordem cronológica)
@@ -73,10 +72,3 @@ def calcular_tempo_total_gasto_em_visitas_reais(statements):
         json.dump(resultado, f, indent=2, ensure_ascii=False)
 
     return resultado
-
-
-if __name__ == "__main__":
-    statements = fetch_statements({
-        "limit": 1000
-    })
-    calcular_tempo_total_gasto_em_visitas_reais(statements)
