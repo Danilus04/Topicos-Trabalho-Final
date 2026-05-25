@@ -57,7 +57,7 @@ import re
 
 #     return resultado
 
-def calcular_tentativas_por_questionario(statements):
+def calcular_tentativas_por_questionario(statements, caminho_arquivo_saida="resultado_tentativas_por_questionario.json"):
     # Dicionário principal para guardar o placar de cada aluno
     # A "Chave" será a combinação única de: (Aluno, Materia, Atividade)
     contagem_tentativas = {}
@@ -106,7 +106,7 @@ def calcular_tentativas_por_questionario(statements):
     # Converte o dicionário em uma lista bonita para exportar
     resultado = list(contagem_tentativas.values())
 
-    with open("resultado_tentativas_por_questionario.json", "w", encoding="utf-8") as f:
+    with open(caminho_arquivo_saida, "w", encoding="utf-8") as f:
         json.dump(resultado, f, indent=2, ensure_ascii=False)
 
     return resultado

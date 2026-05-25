@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 
-def calcular_tempo_resposta(statements):
+def calcular_tempo_resposta(statements, caminho_arquivo_saida="resultado_tempo_resposta.json"):
     tempos = []
 
     for statement in statements:
@@ -36,7 +36,7 @@ def calcular_tempo_resposta(statements):
                 "atividade": atividade or "Desconhecida"
             })
 
-    with open("resultado_tempo_resposta.json", "w", encoding="utf-8") as f:
+    with open(caminho_arquivo_saida, "w", encoding="utf-8") as f:
         json.dump(tempos, f, indent=2, ensure_ascii=False)
 
     return tempos

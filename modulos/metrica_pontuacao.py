@@ -1,7 +1,7 @@
 from collections import defaultdict
 import json
 
-def calcular_pontuacao(statements):
+def calcular_pontuacao(statements, caminho_arquivo_saida="resultado_pontuacao.json"):
     usuarios = defaultdict(lambda: defaultdict(dict))
     
     falhas = {
@@ -84,7 +84,7 @@ def calcular_pontuacao(statements):
                 "pontuacao": round(pontuacao, 2)
             })
 
-    with open("resultado_pontuacao.json", "w", encoding="utf-8") as f:
+    with open(caminho_arquivo_saida, "w", encoding="utf-8") as f:
         json.dump(resultados, f, indent=2, ensure_ascii=False)
 
     return resultados

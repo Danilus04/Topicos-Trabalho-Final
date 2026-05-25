@@ -1,7 +1,7 @@
 import json
 from collections import defaultdict
 
-def calcular_porcentagem_do_curso_acessada(arquivo_json):
+def calcular_porcentagem_do_curso_acessada(arquivo_json, caminho_arquivo_saida="resultado_porcentagem_do_curso_acessada.json"):
     with open(arquivo_json, "r", encoding="utf-8") as f:
         dados = json.load(f)
 
@@ -63,7 +63,7 @@ def calcular_porcentagem_do_curso_acessada(arquivo_json):
             resultados[curso_nome][usuario]["geral"] = round(percentual_curso, 2)
 
     # Salvar resultados em JSON
-    with open("resultado_porcentagem_do_curso_acessada.json", "w", encoding="utf-8") as f:
+    with open(caminho_arquivo_saida, "w", encoding="utf-8") as f:
         json.dump(resultados, f, indent=4, ensure_ascii=False)
 
 

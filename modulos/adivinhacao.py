@@ -4,8 +4,8 @@ import re
 from datetime import datetime
 
 # Caminho do arquivo JSON final
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-OUTPUT_FILE = os.path.join(BASE_DIR, "..", "data", "atividades.json")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__ ))
+OUTPUT_FILE = os.path.join(BASE_DIR, "..", "export", "atividades.json")
 
 # Padrões para expressões regulares
 RE_SLOT = re.compile(r" Review Slot\s+\d+$", re.IGNORECASE)
