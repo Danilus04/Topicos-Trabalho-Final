@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 
-def calcular_tempo_total_gasto_em_visitas_reais(statements):
+def calcular_tempo_total_gasto_em_visitas_reais(statements, caminho_arquivo_saida="resultado_tempo_total_gasto_em_visitas_reais.json"):
     # Ordena statements por timestamp (garante ordem cronológica)
     statements.sort(key=lambda s: s.get("timestamp", ""))
 
@@ -68,7 +68,7 @@ def calcular_tempo_total_gasto_em_visitas_reais(statements):
             })
 
     # Salva em JSON
-    with open("resultado_tempo_total_gasto_em_visitas_reais.json", "w", encoding="utf-8") as f:
+    with open(caminho_arquivo_saida, "w", encoding="utf-8") as f:
         json.dump(resultado, f, indent=2, ensure_ascii=False)
 
     return resultado
