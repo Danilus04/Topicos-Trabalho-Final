@@ -2,3 +2,4 @@ export/
 .venv
 __pycache__/
 xapi_statements_completos.json
+catboost_info
