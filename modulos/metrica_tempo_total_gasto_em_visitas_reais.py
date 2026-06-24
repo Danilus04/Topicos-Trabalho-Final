@@ -5,7 +5,7 @@ def calcular_tempo_total_gasto_em_visitas_reais(statements, caminho_arquivo_said
     # Transforma o timeout para segundos
     timeout_segundos = timeout_minutos * 60 if timeout_minutos > 0 else float('inf')
 
-    # Ordena statements por timestamp (garante ordem cronológica)
+    # Ordena statements por timestamp cronológico
     statements.sort(key=lambda s: s.get("timestamp", ""))
 
     # Agrupa por usuário
@@ -33,30 +33,30 @@ def calcular_tempo_total_gasto_em_visitas_reais(statements, caminho_arquivo_said
 
             verb_display = statement.get("verb", {}).get("display", {}).get("en", "").strip().lower()
 
-            # 1. INÍCIO FANTASMA: Se não tem sessão aberta, abre uma agora.
+            # 1. INÍCIO FANTASMA
             if sessao_inicio is None:
                 sessao_inicio = ts
                 ultima_atividade = ts
 
-            # Calcula o tempo desde o último clique
             tempo_ocioso = (ts - ultima_atividade).total_seconds()
 
-            # 2. REGRAS DE CORTE DE SESSÃO:
-            # Cortamos a sessão SE: for um novo login, OU se estourou o tempo de inatividade
+            # 2. REGRAS DE CORTE DE SESSÃO: Login ou Estouro de Timeout
             if verb_display == "logged in" or tempo_ocioso > timeout_segundos:
-                
-                # Só salva se a sessão durou mais que 0 segundos (evita lixo no dataset)
                 diff_seconds = int((ultima_atividade - sessao_inicio).total_seconds())
+                
                 if diff_seconds > 0:
+                    # Define o motivo exato do corte
+                    motivo = "timeout" if tempo_ocioso > timeout_segundos else "login"
+                    
                     resultado.append({
                         "usuario": usuario,
                         "timestamp_login": sessao_inicio.isoformat(),
                         "timestamp_atividade": ultima_atividade.isoformat(),
-                        "tempo_passado_segundos": diff_seconds, # Útil ter em int para facilitar gráficos depois
-                        "tempo_passado": f"PT{diff_seconds}S"
+                        "tempo_passado_segundos": diff_seconds,
+                        "tempo_passado": f"PT{diff_seconds}S",
+                        "motivo_encerramento": motivo
                     })
 
-                # Inicia a próxima sessão a partir deste evento atual
                 sessao_inicio = ts
                 ultima_atividade = ts
 
@@ -69,17 +69,17 @@ def calcular_tempo_total_gasto_em_visitas_reais(statements, caminho_arquivo_said
                         "timestamp_login": sessao_inicio.isoformat(),
                         "timestamp_atividade": ts.isoformat(),
                         "tempo_passado_segundos": diff_seconds,
-                        "tempo_passado": f"PT{diff_seconds}S"
+                        "tempo_passado": f"PT{diff_seconds}S",
+                        "motivo_encerramento": "logout"
                     })
-                # Zera as variáveis, a próxima linha do loop forçará um Início Fantasma
                 sessao_inicio = None
                 ultima_atividade = None
 
-            # 4. COMPORTAMENTO PADRÃO: Só atualiza o ponteiro de última atividade
+            # 4. COMPORTAMENTO PADRÃO
             else:
                 ultima_atividade = ts
 
-        # Fechamento de segurança: Salva qualquer sessão que tenha ficado aberta no final do loop
+        # Fechamento de segurança no fim dos logs do aluno
         if sessao_inicio is not None and ultima_atividade is not None:
             diff_seconds = int((ultima_atividade - sessao_inicio).total_seconds())
             if diff_seconds > 0:
@@ -88,10 +88,10 @@ def calcular_tempo_total_gasto_em_visitas_reais(statements, caminho_arquivo_said
                     "timestamp_login": sessao_inicio.isoformat(),
                     "timestamp_atividade": ultima_atividade.isoformat(),
                     "tempo_passado_segundos": diff_seconds,
-                    "tempo_passado": f"PT{diff_seconds}S"
+                    "tempo_passado": f"PT{diff_seconds}S",
+                    "motivo_encerramento": "fim_dos_dados"
                 })
 
-    # Salva em JSON
     with open(caminho_arquivo_saida, "w", encoding="utf-8") as f:
         json.dump(resultado, f, indent=2, ensure_ascii=False)
 
